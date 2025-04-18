@@ -1,0 +1,25 @@
+
+- Tipos de seções:
+
+SECTION .data ; dados inicializados
+SECTION .bss ; dados não inicializados (ex: inicialização de vetores)
+SECTION .text ; código assembly
+
+- Tipos de dados
+tipo de dado   pseudo-instrução   tamanho
+byte           DB                 1 byte
+Word           DW                 2 bytes
+Double Word    DD                 4 bytes
+Quad Word      DQ                 8 bytes
+Ten Byte       DT                 10 bytes
+
+
+-Notação numérica
+SECTION .data
+decimal        DB 100
+hexadecimalPos DB 0AFh
+hexadecimalPre DB 0xAF
+binarioPos     DB 10101111b
+binarioPre     DB 0b10101111
+octalPos       DW 777o
+octalPre       DW 0o777

@@ -1,0 +1,25 @@
+%C
+int main () {
+   register int acc = 1;
+   register int count = 3;
+   while((count--)!=0) {
+      acc += 2;
+   }
+   return 0;
+}
+
+%assembly
+
+%include "io.inc"
+
+SECTION .text
+global CMAIN
+CMAIN:
+   MOV EAX, 1    ; movendo 1 para EAX
+   MOV ECX, 3    ; movendo 3 para o contador ECX
+   repitaWhile:
+      ADD EAX, 2 ; EAX += 2
+      LOOP repitaWhile  ; ECX = ECX - 1 & Verifica -> ECX != 0 (se sim vai ao label)
+   PRINT_UDEC 4, EAX  ; mostrando na saída inteiro de 4 bytes
+   MOV EAX, 0  ; movendo 0 a EAX
+   RET         ; retorna EAX

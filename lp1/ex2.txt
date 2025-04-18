@@ -1,0 +1,36 @@
+%C
+int main(){
+    register int num1 = 30;
+    register int num2 = 70;
+    register int num3 = 99;
+    int soma = num1 + num2;
+    int subtracao = soma - num3;
+    return 0;
+}
+
+%Assembly
+%INCLUDE "io.inc"
+SECTION .data
+num1 DD 30
+num2 DD 70
+num3 DD 99
+soma DD 00
+subtracao DD 00
+
+SECTION .text
+global CMAIN
+CMAIN:
+   MOV EAX, [num1]  ; atribuindo a EAX = [num1]
+   MOV EBX, [num2]  ; atribuindo a EBX = [num2]
+   MOV ECX, [num3]  ; atribuindo a ECX = [num3]
+   ADD EAX, EBX     ; EAX += EBX
+   MOV [soma], EAX  ; soma = EAX
+   PRINT_UDEC 4, [soma]  ; mostrando na saída inteiro de 4 bytes
+   PRINT_CHAR 10 ; pulando linha
+   SUB EAX, ECX     ; EAX -= ECX
+   MOV [subtracao], EAX  ; subtracao = EAX
+   PRINT_UDEC 4, [subtracao]  ; mostrando na saída inteiro de 4 bytes
+   PRINT_CHAR 10 ; pulando linha
+   MOV EAX, 0       ; EAX = 0
+   RET ; retorna o valor de EAX
+
