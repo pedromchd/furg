@@ -5,35 +5,26 @@
 section .text
 global CMAIN
 CMAIN:
-    push ebp
     mov ebp, esp
 
-    mov ecx, [num]  ; Inicializa o contador com valor de num
-    mov eax, 1      ; Inicializa o acumulador como 1
+    GET_UDEC 4, ecx     ; Lê um inteiro e armazena no contador
+    mov eax, 1          ; Inicializa o acumulador como 1
 
-    call fatorial   ; Calcula o fatorial
-    mov [res], eax  ; Atribui no resultado o cálculo
+    call fatorial       ; Calcula o fatorial no acumulador
 
-    PRINT_UDEC 4, [res]
-
-    mov esp, ebp
-    pop ebp
+    PRINT_UDEC 4, eax   ; Imprime o resultado
 
     xor eax, eax
     ret
 
 fatorial:
-    cmp ecx, 1      ; Encerra o loop se num <= 1
+    cmp ecx, 1          ; Encerra o loop se o contador <= 1
     jle .end
 
-    mul ecx         ; Multiplica o acumulador pelo contador
-    dec ecx         ; Decrementa o contador
+    mul ecx             ; Multiplica o acumulador pelo contador
+    dec ecx             ; Decrementa o contador
 
-    jmp fatorial    ; Continua o loop do fatorial
+    jmp fatorial        ; Continua o loop do fatorial
 
 .end:
     ret
-
-section .data
-num dd 5
-res dd 0
