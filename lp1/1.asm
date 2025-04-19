@@ -5,31 +5,35 @@
 section .text
 global CMAIN
 CMAIN:
-    mov eax, [num]      ; Atribui o valor de num a eax
-    call fatorial       ; Chama a função fatorial
-    PRINT_UDEC 4, [num] ; Mostra o resultado
+    push ebp
+    mov ebp, esp
+
+    mov ecx, [num]  ; Inicializa o contador com valor de num
+    mov eax, 1      ; Inicializa o acumulador como 1
+
+    call fatorial   ; Calcula o fatorial
+    mov [res], eax  ; Atribui no resultado o cálculo
+
+    PRINT_UDEC 4, [res]
+
+    mov esp, ebp
+    pop ebp
 
     xor eax, eax
     ret
 
-fatorial:               ; f(n) = n * f(n-1), f(1) = 1
-    cmp eax, 1          ; Verifica o caso base n = 1
-    jle .end            ; Termina a recursão
+fatorial:
+    cmp ecx, 1      ; Encerra o loop se num <= 1
+    jle .end
 
-    dec eax             ; Decrementa eax, o passo/step
+    mul ecx         ; Multiplica o acumulador pelo contador
+    dec ecx         ; Decrementa o contador
 
-    mov ebx, eax        ; Guarda o valor de eax em ebx
-    xchg eax, [num]     ; Troca o valor de eax com o de num
-    mul ebx             ; Multiplica eax por ebx e guarda em eax
-    xchg eax, [num]     ; Troca o resultado com o num que guarda o passo
-    
-    call fatorial       ; Continu a recursão
-
-    xor ebx, ebx
-    ret
+    jmp fatorial    ; Continua o loop do fatorial
 
 .end:
     ret
 
 section .data
 num dd 5
+res dd 0
