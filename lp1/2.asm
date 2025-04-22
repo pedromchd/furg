@@ -7,15 +7,20 @@ global CMAIN
 CMAIN:
     mov ebp, esp
 
-    GET_UDEC 4, ebx     ; Lê a entrada para ebx
+    mov ebx, [num]      ; Lê a entrada para ebx
     mov ecx, 2          ; Inicializa o contador em 2
 
     mov al, 1           ; Inicializa "é primo" como 1 (true)
     call isPrime        ; Verifica se o número é primo
 
-    PRINT_UDEC 1, al    ; Escreve se é primo => 1 (primo), 0 (não primo)
+    cmp al, 1
+    je .prime
 
     xor eax, eax
+    ret
+
+.prime:
+    PRINT_STRING "Prime"
     ret
 
 isPrime:
@@ -33,7 +38,11 @@ isPrime:
     jmp isPrime
 
     .not:
+        PRINT_STRING "Not prime"
         mov al, 0       ; Define o "é primo" como 0 (false)
 
     .end:
         ret
+
+section .data
+num dd 11

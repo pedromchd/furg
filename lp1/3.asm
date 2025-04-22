@@ -7,7 +7,7 @@ global CMAIN
 CMAIN:
     mov ebp, esp
 
-    GET_UDEC 4, ecx     ; Lê a entrada no contador
+    mov ecx, [num]      ; Lê a entrada no contador
     mov eax, 1          ; Inicializa o acumulador em 1 (primeiro ímpar)
 
     call print_odds     ; Escreve os n primeiros ímpares naturais
@@ -29,3 +29,6 @@ print_odds:
 
     .end:
         ret
+
+section .data
+num dd 7

@@ -7,7 +7,7 @@ global CMAIN
 CMAIN:
     mov ebp, esp
 
-    GET_UDEC 4, ecx     ; Lê um inteiro e armazena no contador
+    mov ecx, [num]      ; Lê um inteiro e armazena no contador
     mov eax, 1          ; Inicializa o acumulador como 1
 
     call fatorial       ; Calcula o fatorial no acumulador
@@ -28,3 +28,6 @@ fatorial:
 
 .end:
     ret
+
+section .data
+num dd 5
