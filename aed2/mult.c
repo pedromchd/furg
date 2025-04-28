@@ -38,6 +38,30 @@ ALGORITMO MULTIPLICA()
 FIM ALGORITMO;
 */
 
+/*
+MULTIPLICA(op1-str, op2-str)
+    let OP1[1..4], OP2[1..4], R[1..8], R-AUX[1..5] be new arrays
+    for i = 1 to 4
+        OP1[i] = INT(op1-str[i])
+        OP2[i] = INT(op2-str[i])
+    for i = 1 to 8
+        R[i] = 0
+    for i = 4 downto 1
+        aux-div = 0
+        for j = 4 downto 1
+            aux-mult = OP1[j] * OP2[i] + aux-div
+            R-AUX[j + 1] = aux-mult mod 10
+            aux-div = INT(aux-mult / 10)
+        R-AUX[1] = aux-div
+        aux-div = 0
+        for j = 5 downto 1
+            aux-soma = R-AUX[j] + R[i + j - 1] + aux-div
+            R[i + j - 1] = aux-soma mod 10
+            aux-div = INT(aux-soma / 10)
+        R[i - 1] = aux-div
+    return R
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
 
