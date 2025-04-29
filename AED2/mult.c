@@ -112,5 +112,10 @@ int main(int argc, char *argv[])
     }
     printf("\n");
 
+    free(op1);
+    free(op2);
+    free(aux);
+    free(res);
+
     return 0;
 }
