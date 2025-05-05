@@ -9,6 +9,21 @@ ORDENA(A)
                 min = num
                 minIndex = j
         swap(A[i], A[minIndex])
+
+SELECTION-SORT(A)
+    n <- length[A];                     C1
+    for j <- 1 to n - 1 do              C2 * n
+        smallest <- j;                  C3 * (n - 1)
+        for i <- j + 1 to n do          C4 * (n - 1) * (n - 1 + 1)
+            if A[i] < A[smallest] then  C5 * (n - 1) * n
+                smallest <- i;          C6 * (n - 1) * n
+            enf if;
+        enf for;
+        tmp <- A[j];                    C7 * (n - 1)
+        A[j] <- A[smallest];            C8 * (n - 1)
+        A[smallest] = tmp;              C9 * (n - 1)
+    end for;
+    end procedure
 */
 
 #include "stdio.h"
