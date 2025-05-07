@@ -49,7 +49,7 @@ int main(void)
                 double preco;
 
                 printf("Digite o nome do produto: ");
-                gets(nome);
+                fgets(nome, sizeof(nome), stdin);
 
                 printf("Digite o código do produto: ");
                 scanf("%d", &codigo);
@@ -62,6 +62,13 @@ int main(void)
                 Produto* produto = criarProduto(nome, codigo, preco);
 
                 Node* novo = (Node*)malloc(sizeof(Node));
+
+                if (novo == NULL)
+                {
+                    printf("Erro ao alocar memória para o produto.\n");
+                    exit(1);
+                }
+
                 novo->produto = produto;
                 novo->next = lista;
                 lista = novo;
@@ -88,7 +95,7 @@ int main(void)
                 char nome[30];
 
                 printf("Digite o nome do produto: ");
-                gets(nome);
+                fgets(nome, sizeof(nome), stdin);
 
                 Produto* encontrado = buscarProduto(lista, nome);
 
@@ -116,6 +123,7 @@ int main(void)
 Produto* criarProduto(char* nome, int codigo, double preco)
 {
     Produto* produto = (Produto*)malloc(sizeof(Produto));
+
     if (produto == NULL)
     {
         printf("Erro ao alocar memória para o produto.\n");
@@ -132,6 +140,8 @@ Produto* criarProduto(char* nome, int codigo, double preco)
 void exibirLista(Node* lista)
 {
     Node* atual = lista;
+
+    printf("--------------------------\n");
     while (atual != NULL)
     {
         printf("Nome: %s\n", atual->produto->nome);
@@ -145,6 +155,7 @@ void exibirLista(Node* lista)
 Produto* buscarProduto(Node* lista, char* nome)
 {
     Node* atual = lista;
+
     while (atual != NULL)
     {
         if (strcmp(atual->produto->nome, nome) == 0)
@@ -153,5 +164,6 @@ Produto* buscarProduto(Node* lista, char* nome)
         }
         atual = atual->next;
     }
+
     return NULL;
 }
