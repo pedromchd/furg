@@ -17,46 +17,52 @@ algorithm Sieve of Eratosthenes is
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
-#include <math.h>
 
-bool* sieveEratosthenes(int n) {
-    bool* sieve = (bool*)malloc((n + 1) * sizeof(bool));
-    if (sieve == NULL) {
-        printf("Falha ao alocar memória\n");
-        exit(1);
-    }
+int* crivoDeEratostenes(int n) {
+    bool ehPrimo[n + 1];
 
-    sieve[0] = false;
-    sieve[1] = false;
+    ehPrimo[0] = false;
+    ehPrimo[1] = false;
     for (int i = 2; i <= n; i++) {
-        sieve[i] = true;
+        ehPrimo[i] = true;
     }
 
-    for (int i = 2; i <= (int)sqrt(n); i++) {
-        if (sieve[i] == true) {
-            for (int j = pow(i, 2); j <= n; j += i) {
-                sieve[j] = false;
+    for (int p = 2; p * p <= n; p++) {
+        if (ehPrimo[p] == true) {
+            for (int i = p * p; i <= n; i += p) {
+                ehPrimo[i] = false;
             }
         }
     }
 
-    return sieve;
+    int* primos = (int*)calloc((n + 1), sizeof(int));
+    if (primos == NULL) {
+        printf("Falha ao alocar memória\n");
+        exit(1);
+    }
+
+    int primosIndex = 0;
+    for (int i = 2; i <= n; i++) {
+        if (ehPrimo[i] == true) {
+            primos[primosIndex] = i;
+            primosIndex++;
+        }
+    }
+
+    return primos;
 }
 
 int main(void) {
-    int n;
+    int limite = 30;
 
-    printf("Exibir primos de 2 até... ");
-    scanf("%d", &n);
+    int* primos = crivoDeEratostenes(limite);
 
-    bool* sieve = sieveEratosthenes(n);
-    for (int i = 0; i <= n; i++) {
-        if (sieve[i] == true) {
-            printf("%d ", i);
-        }
+    printf("Primos até %d: ", limite);
+    int primosIndex = 0;
+    while(primos[primosIndex] != 0) {
+        printf("%d, ", primos[primosIndex]);
+        primosIndex++;
     }
-    printf("\n");
 
-    free(sieve);
     return 0;
 }
