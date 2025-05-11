@@ -112,6 +112,24 @@ int main(void)
                 }
                 break;
             }
+
+            case 4:
+            {
+                Node* atual = lista;
+
+                while (atual != NULL)
+                {
+                    Node* temp = atual;
+                    atual = atual->next;
+                    free(temp->produto);
+                    free(temp);
+                }
+
+                free(lista);
+                lista = NULL;
+
+                break;
+            }
         }
 
         printf("\n");
