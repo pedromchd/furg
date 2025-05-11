@@ -64,5 +64,6 @@ int main(void) {
         primosIndex++;
     }
 
+    free(primos);
     return 0;
 }
