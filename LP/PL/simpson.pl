@@ -14,7 +14,6 @@ mulher(selma).
 mulher(lisa).
 mulher(maggie).
 
-
 pai(abraham, herb).
 pai(abraham, homer).
 pai(clancy, marge).
@@ -34,7 +33,6 @@ mae(marge, bart).
 mae(marge, lisa).
 mae(marge, maggie).
 mae(selma, ling).
-
 
 casado(abraham, mona).
 casado(clancy, jackie).
@@ -59,22 +57,21 @@ avo(X, Y) :- mae(X, Z), pai(Z, Y).
 avo(X, Y) :- mae(X, Z), mae(Z, Y).
 
 % a. Quem são as mulheres da família?
-mulher(X).
+?- mulher(X).
 
 % b. Quem são seus tios e tias do Bart por parte de mãe?
-tio(X, bart), pai(clancy, X).
-tia(X, bart), mae(jackie, X).
+?- mae(marge, bart), irmao(X, marge), homem(X).  % tios maternos
+?- mae(marge, bart), irmao(X, marge), mulher(X). % tias maternas
 
 % c. Quem são seus tios e tias do Bart por parte de pai?
-tio(X, bart), pai(abraham, X).
-tia(X, bart), mae(mona, X).
+?- pai(homer, bart), irmao(X, homer), homem(X).  % tios paternos
+?- pai(homer, bart), irmao(X, homer), mulher(X). % tias paternas
 
 % d. Quem são seus tios e tias do Bart que se casaram com parentes seus?
-(tio(X, bart); tia(X, bart)), casado(X, Y).
-(tio(X, bart); tia(X, bart)), casado(Y, X).
+?- (tio(X, bart); tia(X, bart)), casado(X, Y), (filho(Z, Y); filho(Z, X)).
 
 % e. Quem são seus primos do Bart por parte de pai?
-primo(X, bart), pai(abraham, Y), pai(Y, X).
+?- pai(homer, bart), irmao(Tio, homer), (pai(Tio, Primo); mae(Tio, Primo)).
 
 % f. Quem são seus primos do Bart por parte de mãe?
-primo(X, bart), mae(jackie, Y), mae(Y, X).
+?- mae(marge, bart), irmao(Tio, marge), (pai(Tio, Primo); mae(Tio, Primo)).
